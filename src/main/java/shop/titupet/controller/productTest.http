@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/v1/products
+Content-Type: application/json
+
+{
+  "petTypes": "CAT",
+  "name" : "cay cao mong2",
+  "description": "adasdsadsa",
+  "info" : "adsdasdsad",
+  "price": 1500.0,
+  "img" : "asdsadasda"
+}
+
+###
+### GET request with a header
+GET http://localhost:8080/api/v1/products
+Accept: application/json
+
+###
+DELETE http://localhost:8080/api/v1/products/1
+Accept: application/json
+
+
+###
+### GET request with a header
+PUT http://localhost:8080/api/v1/products/2
+Content-Type: application/json
+
+{
+  "id" : "2",
+  "petTypes": "CAT",
+  "name" : "cay cao mong 10",
+  "description": "adasdsadsa",
+  "info" : "adsdasdsad",
+  "price": 200.0,
+  "img" : "asdsadasda"
+}
