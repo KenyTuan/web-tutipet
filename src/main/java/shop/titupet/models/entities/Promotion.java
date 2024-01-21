@@ -1,9 +1,11 @@
 package shop.titupet.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.DiscountType;
+import shop.titupet.models.enums.PromotionTarget;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -22,6 +24,8 @@ public class Promotion extends BaseEntity {
 
     private String code;
 
+    private PromotionTarget target;
+
     private ZonedDateTime fromTime;
 
     private ZonedDateTime toTime;
@@ -34,7 +38,21 @@ public class Promotion extends BaseEntity {
 
     private BigDecimal value;
 
-    @OneToMany(mappedBy = "promotion")
-    private Set<ProductOrder> productOrders;
+    @ManyToMany
+    @JoinTable(
+            name = "order_promotion",
+            joinColumns = @JoinColumn(name = "=promotion_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    @JsonIgnore
+    private Set<Order> orders;
 
+    @ManyToMany
+    @JoinTable(
+            name = "product_promotion",
+            joinColumns = @JoinColumn(name = "=promotion_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    @JsonIgnore
+    private Set<Product> products;
 }

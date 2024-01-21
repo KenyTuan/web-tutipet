@@ -22,4 +22,5 @@ public interface AddressService {
     Address updateAddress(UpdateAddressReq req);
 
 
+    Address getAddressUser(Long userId);
 }

@@ -2,13 +2,17 @@ package shop.titupet.service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import shop.titupet.config.exception.BadRequestException;
 import shop.titupet.config.exception.NotFoundException;
 import shop.titupet.models.converter.AddressDtoConverter;
 import shop.titupet.models.dtos.address.CreateAddressReq;
 import shop.titupet.models.dtos.address.UpdateAddressReq;
 import shop.titupet.models.entities.Address;
+import shop.titupet.models.entities.User;
 import shop.titupet.models.enums.ObjectStatus;
 import shop.titupet.repository.AddressRepo;
+import shop.titupet.repository.UserRepository;
 import shop.titupet.service.AddressService;
 
 import java.util.List;
@@ -17,46 +21,103 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
-    private final AddressRepo repo;
+    private final AddressRepo Addressrepo;
 
+    private final UserRepository userRepo;
 
+    // ============================ SHOW ALL ADDRESS =============================
     @Override
     public List<Address> getAllAddress() {
-        return repo.findAll();
+        return Addressrepo.findAllActive();
     }
 
+
+    // ============================ FIND ADDRESS BY ID =============================
     @Override
     public Address getAddressById(Long id) {
 
-        return repo.findById(id).orElseThrow(() -> new NotFoundException("404","Address Not Found!"));
+        return Addressrepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
     }
 
+    // ============================ FIND ADDRESS BY USER ID =============================
     @Override
+    public Address getAddressUser(Long userId) {
+
+        return Addressrepo.findActiveByUserID(userId)
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
+    }
+
+    // ============================ Create ADDRESS =============================
+    @Override
+    @Transactional
     public Address createAddress(CreateAddressReq req) {
-        Address address = AddressDtoConverter.toEntity(req);
+        // Find User in db
+        final User user = userRepo.findUserActiveById(req.getUser_id())
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
 
-        repo.save(address);
-        return address;
+        try{
+            // Change request to entity
+            Address address = AddressDtoConverter.toEntity(req);
+
+            // Set User
+            address.setUser(user);
+
+            Addressrepo.save(address);
+
+            return address;
+        }catch (Exception e){
+            throw new BadRequestException("500","Error Server " + e); // return error
+        }
+
     }
 
+    // ============================ DELETE ADDRESS =============================
     @Override
+    @Transactional
     public void deleteAddress(Long id) {
-        Address address = repo.findById(id).orElseThrow(() -> new NotFoundException("404","Address Not Found."));
+        //Find obj in the database
+        Address address = Addressrepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
+        try {
 
-        address.setObjectStatus(ObjectStatus.DELETED);
-        repo.save(address);
+            // Change Active to Deleted
+            address.setObjectStatus(ObjectStatus.DELETED);
+
+            Addressrepo.save(address);
+        }catch (Exception e){
+            throw new BadRequestException("500","Error Server " + e); // return error
+        }
+
     }
 
+
+    // ============================ UPDATE ADDRESS =============================
     @Override
+    @Transactional
     public Address updateAddress(UpdateAddressReq req) {
-        Address oldAddress = repo.findById(req.getId()).orElseThrow(() -> new NotFoundException("404","Address Not Found."));
+        //Find obj in the database
+        Address oldAddress = Addressrepo.findActiveById(req.getId())
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
 
-        oldAddress.setObjectStatus(ObjectStatus.DELETED);
-        repo.save(oldAddress);
+        try {
 
-        Address newAddress = AddressDtoConverter.toEntity(req);
+            // Update the ObjectStatus field
+            oldAddress.setObjectStatus(ObjectStatus.DELETED);
 
-        repo.save(newAddress);
-        return newAddress;
+            Addressrepo.save(oldAddress);
+
+            //Create a new Obj
+            Address newAddress = AddressDtoConverter.toEntity(req);
+            newAddress.setUser(oldAddress.getUser());
+
+            Addressrepo.save(newAddress);
+
+            return newAddress; // Return the updated obj
+        }catch (Exception e){
+            throw new BadRequestException("500","Error Server " + e); // return error
+        }
     }
+
+
 }

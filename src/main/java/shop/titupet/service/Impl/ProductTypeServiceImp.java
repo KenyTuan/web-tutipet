@@ -1,21 +1,20 @@
 package shop.titupet.service.Impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shop.titupet.config.exception.NotFoundException;
 import shop.titupet.models.entities.ProductType;
-import shop.titupet.repository.TypeProductRepo;
-import shop.titupet.service.TypeProductService;
+import shop.titupet.repository.ProductTypeRepo;
+import shop.titupet.service.ProductTypeService;
 
 import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
-public class TypeProductServiceImp implements TypeProductService {
+public class ProductTypeServiceImp implements ProductTypeService {
 
-    private final TypeProductRepo repo;
+    private final ProductTypeRepo repo;
 
     @Override
     public List<ProductType> getAllTypeProduct() {

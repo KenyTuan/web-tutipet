@@ -1,76 +1,131 @@
 package shop.titupet.service.Impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import shop.titupet.config.exception.NotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+import shop.titupet.config.exception.*;
 import shop.titupet.models.converter.ProductDtoConverter;
 import shop.titupet.models.dtos.product.CreateProductReq;
 import shop.titupet.models.dtos.product.UpdateProductReq;
 import shop.titupet.models.entities.Product;
+import shop.titupet.models.entities.ProductType;
+import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.ObjectStatus;
 import shop.titupet.repository.ProductRepo;
+import shop.titupet.repository.ProductTypeRepo;
 import shop.titupet.service.ProductService;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
 
-    @Autowired
-    public ProductServiceImpl(ProductRepo productRepo) {
-        this.productRepo = productRepo;
-    }
+    private final ProductTypeRepo typeRepo;
 
+    // ============================ GET ALL PRODUCTS =============================
     @Override
     public List<Product> getAllProducts() {
-        List<Product> products = productRepo.findAllActive();
-        return products;
+        return productRepo.findAllActive();
     }
 
+
+    // ============================ GET PRODUCT BY ID ============================
     @Override
     public Product getProductById(Long id) {
-        Product product = productRepo.findById(id)
+        return productRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException("404","Not Found"));
-
-        return product;
     }
 
+    // ============================ CRATE PRODUCT =================================
     @Override
+    @Transactional
     public Product createProduct(CreateProductReq req) {
 
-        Product product = ProductDtoConverter.toEntity(req);
+        final ProductType type = typeRepo.findById(req.getType_id())
+                .orElseThrow(() -> new NotFoundException("404","Not Found"));
 
-        productRepo.save(product);
+        try {
+            final Product product = ProductDtoConverter.toEntity(req);
 
-        return product;
+            product.setType(type);
+
+            productRepo.save(product);
+
+            return product;
+        }catch (Exception e){
+            throw new BadRequestException("400","Error Server"+ e);
+        }
+
     }
 
+    // ============================ DELETE PRODUCT ============================
     @Override
+    @Transactional
     public void deleteProduct(Long id) {
-
-        Product product = productRepo.findById(id)
+        final Product product = productRepo.findById(id)
                 .orElseThrow(()->new NotFoundException("404","Not Found"));
 
-        product.setObjectStatus(ObjectStatus.DELETED);
-        productRepo.save(product);
+        try {
+
+            product.setObjectStatus(ObjectStatus.DELETED);
+
+            productRepo.save(product);
+        }catch (Exception e){
+            throw new BadRequestException("400","Error Server"+ e);
+        }
+
     }
 
+    // ============================ UPDATE PRODUCT ============================
     @Override
+    @Transactional
     public Product updateProduct(UpdateProductReq req) {
-
-        Product product = productRepo.findById(req.getId())
+        final Product product = productRepo.findById(req.getId())
                 .orElseThrow(()->new NotFoundException("404","Not Found"));
 
-        product.setObjectStatus(ObjectStatus.DELETED);
-        productRepo.save(product);
+        final ProductType type = (req.getType_id().equals(product.getType().getId()))?
+                product.getType() : typeRepo.findById(req.getType_id())
+                .orElseThrow(() -> new NotFoundException("404","Not Found"));
 
-        Product newProduct = ProductDtoConverter.toEntity(req);
-        newProduct.setStatus(product.getStatus());
+        try {
+            // Update Obj Status into DELETED
+            product.setObjectStatus(ObjectStatus.DELETED);
+            productRepo.save(product);
 
-        productRepo.save(newProduct);
+            // Save Obj Updated
+            Product newProduct = ProductDtoConverter.toEntity(req);
+            newProduct.setType(type);
+            productRepo.save(newProduct);
 
-        return newProduct;
+            return newProduct;
+        }catch (Exception e){
+            throw new BadRequestException("400","Error "+ e);
+        }
+
+    }
+
+    // ============================ UPDATE STATUS PRODUCT ============================
+    @Override
+    public Product updateEnable(Long id, EnableStatus enable) {
+        final Product product = productRepo.findById(id)
+                .orElseThrow(()->new NotFoundException("404","Not Found"));
+        try {
+            product.setStatus(enable);
+            productRepo.save(product);
+            return product;
+        }catch (Exception e){
+            throw new BadRequestException("400","Error "+ e);
+        }
+    }
+
+    // ============================ SEARCH NAME ============================
+    @Override
+    public Product getProductByName(String name) {
+        return productRepo.findActiveByName(name)
+                .orElseThrow(()->new NotFoundException("404","Not Found"));
     }
 }

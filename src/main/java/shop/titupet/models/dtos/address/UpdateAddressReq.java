@@ -3,6 +3,7 @@ package shop.titupet.models.dtos.address;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import shop.titupet.models.entities.User;
 
 @Getter @Setter
 public class UpdateAddressReq {

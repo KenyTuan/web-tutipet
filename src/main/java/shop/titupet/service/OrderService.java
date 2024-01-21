@@ -1,5 +1,6 @@
 package shop.titupet.service;
 
+import shop.titupet.models.dtos.order.CreateOrderDtoReq;
 import shop.titupet.models.entities.Order;
 
 import java.util.List;
@@ -10,10 +11,10 @@ public interface OrderService {
 
     Order getOrderById(Long id);
 
-    String createOrder(Order order);
+    Order createOrder(CreateOrderDtoReq order);
 
-    String deleteOrder(Long id);
+    void deleteOrder(Long id);
 
-    String updateOrder(Long id,Order order);
+    Order updateOrder(Order order);
 
 }

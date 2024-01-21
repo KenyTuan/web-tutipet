@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.service.annotation.GetExchange;
 import shop.titupet.models.entities.Product;
+import shop.titupet.models.entities.ProductType;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.PetType;
 
@@ -14,6 +15,7 @@ import shop.titupet.models.enums.PetType;
 @Getter @Setter
 public class CreateProductReq {
 
+    @NotNull(message = "Pet Type is required.")
     private PetType petTypes;
 
     @NotBlank(message = "Name is required.")
@@ -23,12 +25,12 @@ public class CreateProductReq {
 
     private String info;
 
-    @Positive(message = "Price must greater than 0")
-    @NotBlank(message = "Price is required.")
+    @Positive(message = "Price must greater than 0.")
     private double price;
 
     private String img;
 
-    @NotNull(message = "Status is required.")
-    private EnableStatus status;
+    @NotNull(message = "Type is required.")
+    private Integer type_id;
+
 }

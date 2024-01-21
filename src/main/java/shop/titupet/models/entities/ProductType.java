@@ -1,6 +1,7 @@
 package shop.titupet.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,6 +22,7 @@ public class ProductType extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "type")
+    @JsonIgnore
     private Set<Product> products;
 
 }

@@ -11,15 +11,16 @@ public class CreateUserReq {
     @NotBlank(message = "Name is required.")
     private String fullName;
 
+    private boolean gender;
+
     @Email(message = "Invalid Email!")
     private String email;
 
-    @Min(value = 5,message = "Price must greater than 5")
     @NotBlank(message = "Password is required.")
     private String password;
 
-    @NotNull(message = "Gender is required.")
-    private boolean gender;
+    @NotBlank(message = "Password Confirm is required.")
+    private String confirmPassword;
 
     private String img;
 
