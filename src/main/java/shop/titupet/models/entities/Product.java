@@ -1,9 +1,8 @@
 package shop.titupet.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.PetType;
@@ -40,11 +39,15 @@ public class Product extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @JsonIgnore
     private ProductType type;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductOrder> productOrder;
+    @JsonIgnore
+    private Set<ProductOrder> productOrders;
 
-
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private Set<Promotion> promotions;
 
 }

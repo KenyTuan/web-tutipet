@@ -1,6 +1,9 @@
 package shop.titupet.service.Impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import shop.titupet.config.exception.BadRequestException;
 import shop.titupet.config.exception.NotFoundException;
 import shop.titupet.models.dtos.user.CreateUserReq;
@@ -12,17 +15,15 @@ import shop.titupet.repository.UserRepository;
 import shop.titupet.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
 
     @Override
@@ -33,35 +34,52 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        User user = userRepository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("404", "Not Found"));
-        return user;
     }
 
     @Override
+    @Transactional()
     public User createUser(CreateUserReq req) {
         //Validation
+        if (!Objects.equals(req.getPassword(), req.getConfirmPassword())){
+            throw new BadRequestException("400","Password Doest Not Match!");
+        }
+
         final boolean existedEmail = userRepository.existsByEmail(req.getEmail());
 
         if (existedEmail)
             throw new BadRequestException("400", "Email existed.");
 
-        final User user = UserDtoConverter.toEntity(req);
-        userRepository.save(user);
+        try {
 
-        return user;
+            // Change request to entity
+            final User user = UserDtoConverter.toEntity(req);
+            userRepository.save(user);
+
+            return user;
+        }catch (Exception e){
+            throw new BadRequestException("500","Error Server " + e);
+        }
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
-        final User user = userRepository.findById(id)
-                .orElseThrow(()-> new NotFoundException("404","User not found"));
+        try{
+            final User user = userRepository.findById(id)
+                    .orElseThrow(()-> new NotFoundException("404","User not found"));
 
-        updateDeletedUserData(user);
-        userRepository.save(user);
+            updateDeletedUserData(user);
+            userRepository.save(user);
+        }catch (Exception e){
+            throw new BadRequestException("500","Error Server " + e);
+        }
+
     }
 
     @Override
+    @Transactional
     public User updateUser(Long id, User user) {
         return null;
     }

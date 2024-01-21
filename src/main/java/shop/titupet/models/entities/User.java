@@ -1,6 +1,7 @@
 package shop.titupet.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,18 +12,17 @@ import java.util.*;
 @NoArgsConstructor
 @Getter @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;
@@ -32,9 +32,10 @@ public class User extends BaseEntity {
     private String img;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Address> addresses;
 
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 }

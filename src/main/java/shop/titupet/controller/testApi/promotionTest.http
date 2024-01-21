@@ -1,0 +1,33 @@
+POST http://localhost:8080/api/v1/promotion
+Content-Type: application/json
+
+{
+  "code" : "aaaa",
+  "fromTime" : "2024-01-15T00:00:00Z",
+  "toTime" : "2024-01-30T00:00:00Z",
+  "discountType" : "PERCENTAGE",
+  "value" : 0.1,
+  "target": "PRODUCT",
+  "productIds" : [
+    1, 2
+  ]
+}
+
+###
+
+POST http://localhost:8080/api/v1/promotion
+Content-Type: application/json
+
+{
+  "code" : "aaaa",
+  "fromTime" : "2024-01-01T00:00:00Z",
+  "toTime" : "2024-01-15T00:00:00Z",
+  "discountType" : "PERCENTAGE",
+  "value" : 0.1,
+  "target": "PRODUCT",
+  "productIds" : [
+    1, 2
+  ]
+}
+
+###

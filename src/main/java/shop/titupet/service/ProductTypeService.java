@@ -4,7 +4,7 @@ import shop.titupet.models.entities.ProductType;
 
 import java.util.List;
 
-public interface TypeProductService {
+public interface ProductTypeService {
 
     List<ProductType> getAllTypeProduct();
 

@@ -1,6 +1,8 @@
 package shop.titupet.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,18 +17,19 @@ public class ProductOrder extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "quantity",nullable = false)
+    private int quantity;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
+//    @JsonIgnoreProperties("productOrders")
+    @JsonIgnore
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+//    @JsonIgnoreProperties("productOrders")
+    @JsonIgnore
     private Product product;
 
-    @Column(name = "quantity",nullable = false)
-    private int quantity;
-
-    @ManyToOne(targetEntity = Promotion.class)
-    @JoinColumn(name = "promotion_id", referencedColumnName = "id")
-    private Promotion promotion;
 }

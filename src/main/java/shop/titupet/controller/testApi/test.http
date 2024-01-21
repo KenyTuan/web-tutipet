@@ -3,8 +3,9 @@ Content-Type: application/json
 
 {
   "fullName": "ancsdfa",
-  "email": "ancsdfa2@gmail.com",
+  "email": "ancsdfa1@gmail1.com",
   "password": "123456",
+  "confirmPassword": "123456",
   "gender" : true,
   "role": "abc",
   "img": ""
@@ -12,9 +13,15 @@ Content-Type: application/json
 
 ###
 ### GET request with a header
+GET http://localhost:8080/api/v1/users/1
+Accept: application/json
+
+
+###
+### GET request with a header
 GET http://localhost:8080/api/v1/users
 Accept: application/json
 
 ###
-DELETE http://localhost:8080/api/v1/users/2
+DELETE http://localhost:8080/api/v1/users/1
 Accept: application/json

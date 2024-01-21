@@ -10,20 +10,26 @@ public class UserDtoConverter {
         User user = User.builder()
                 .email(req.getEmail())
                 .fullName(req.getFullName())
+                .password(req.getPassword())
                 .gender(req.isGender())
                 .img(req.getImg())
                 .build();
         user.setObjectStatus(ObjectStatus.ACTIVE);
-
         return user;
     };
 
     public static UserRes toResponse(User user) {
         return new UserRes(
                 user.getId(),
+                user.getFullName(),
                 user.getEmail(),
                 user.isGender(),
-                user.getImg()
+                user.getImg(),
+                user.getCreatedAt(),
+                user.getCreatedBy(),
+                user.getUpdatedAt(),
+                user.getUpdatedBy(),
+                user.getObjectStatus()
         );
     }
 }

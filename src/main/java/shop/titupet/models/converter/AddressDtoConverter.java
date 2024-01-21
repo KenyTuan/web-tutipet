@@ -4,6 +4,7 @@ import shop.titupet.models.dtos.address.AddressRes;
 import shop.titupet.models.dtos.address.CreateAddressReq;
 import shop.titupet.models.dtos.address.UpdateAddressReq;
 import shop.titupet.models.entities.Address;
+import shop.titupet.models.entities.User;
 import shop.titupet.models.enums.ObjectStatus;
 
 public class AddressDtoConverter {
@@ -30,9 +31,15 @@ public class AddressDtoConverter {
 
     public static AddressRes toResponse(Address address){
         return new AddressRes(
+                address.getId(),
                 address.getReceiverName(),
                 address.getAddress(),
-                address.getPhone()
+                address.getPhone(),
+                address.getCreatedAt(),
+                address.getCreatedBy(),
+                address.getUpdatedAt(),
+                address.getUpdatedBy(),
+                address.getObjectStatus()
         );
     }
 
