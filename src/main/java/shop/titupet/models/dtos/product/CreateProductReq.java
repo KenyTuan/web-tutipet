@@ -15,9 +15,6 @@ import shop.titupet.models.enums.PetType;
 @Getter @Setter
 public class CreateProductReq {
 
-    @NotNull(message = "Pet Type is required.")
-    private PetType petTypes;
-
     @NotBlank(message = "Name is required.")
     private String name;
 

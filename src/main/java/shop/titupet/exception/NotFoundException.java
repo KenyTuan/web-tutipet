@@ -1,6 +1,6 @@
-package shop.titupet.config.exception;
+package shop.titupet.exception;
 
-public class NotFoundException extends TutipetException {
+public class NotFoundException extends TitupetException {
     public NotFoundException(String code, String message) {
         super(code, message);
     }

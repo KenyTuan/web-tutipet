@@ -26,4 +26,5 @@ public interface ProductRepo extends JpaRepository<Product,Long> {
             "and p.status = shop.titupet.models.enums.EnableStatus.ENABLED " +
             "and p.name like :name")
     Optional<Product> findActiveByName(@Param(value = "name") String name);
+
 }

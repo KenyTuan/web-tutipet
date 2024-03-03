@@ -11,4 +11,6 @@ public interface CartService {
     List<Cart> getAllCart();
 
     Cart createCart(CartReq req);
+
+    Cart getCartById(Long id);
 }

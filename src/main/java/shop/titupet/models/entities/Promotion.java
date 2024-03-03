@@ -24,7 +24,7 @@ public class Promotion extends BaseEntity {
 
     private String code;
 
-    private PromotionTarget target;
+//    private PromotionTarget target;
 
     private ZonedDateTime fromTime;
 
@@ -38,14 +38,14 @@ public class Promotion extends BaseEntity {
 
     private BigDecimal value;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_promotion",
-            joinColumns = @JoinColumn(name = "=promotion_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
-    @JsonIgnore
-    private Set<Order> orders;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "order_promotion",
+//            joinColumns = @JoinColumn(name = "=promotion_id"),
+//            inverseJoinColumns = @JoinColumn(name = "order_id")
+//    )
+//    @JsonIgnore
+//    private Set<Order> orders;
 
     @ManyToMany
     @JoinTable(

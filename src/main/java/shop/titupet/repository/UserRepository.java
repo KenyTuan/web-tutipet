@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
+
     boolean existsByEmail(@Param("email") String email);
 
     @Query("SELECT u from User u WHERE u.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE")

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PromotionController {
 
-    final PromotionService promotionService;
+    private final PromotionService promotionService;
 
     // ============================ GET ALL PROMOTION =============================
     @GetMapping(ApiEndpoints.PROMOTION_V1)

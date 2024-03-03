@@ -1,18 +1,17 @@
 package shop.titupet.models.converter;
 
-import shop.titupet.models.dtos.order.CreateOrderDtoReq;
-import shop.titupet.models.dtos.order.OrderDtoRes;
-import shop.titupet.models.dtos.order.UpdateOrderDtoReq;
+import shop.titupet.models.dtos.order.CreateOrderReq;
+import shop.titupet.models.dtos.order.OrderRes;
+import shop.titupet.models.dtos.order.UpdateOrderReq;
 import shop.titupet.models.entities.Order;
 import shop.titupet.models.enums.ObjectStatus;
 import shop.titupet.models.enums.OrderStatus;
-import shop.titupet.utils.PromotionUtils;
 
 import java.util.stream.Collectors;
 
 public class OrderDtoConverter {
 
-    public static Order toEntity(CreateOrderDtoReq req){
+    public static Order toEntity(CreateOrderReq req){
         Order order = Order.builder()
                 .note(req.getNote())
                 .status(OrderStatus.OPEN)
@@ -23,15 +22,15 @@ public class OrderDtoConverter {
         return order;
     }
 
-    public static Order toEntity(UpdateOrderDtoReq req){
+    public static Order toEntity(UpdateOrderReq req){
 
         return Order.builder()
                 .status(req.getStatus())
                 .build();
     }
 
-    public static OrderDtoRes toResponse(Order order){
-        return new OrderDtoRes(
+    public static OrderRes toResponse(Order order){
+        return new OrderRes(
                 order.getId(),
                 order.getNote(),
                 order.getStatus(),
@@ -41,8 +40,8 @@ public class OrderDtoConverter {
                 order.getUpdatedBy(),
                 order.getObjectStatus(),
                 order.getAddress(),
-                order.getProductOrders().stream().map(ProductOrderDtoConverter::toResponse).collect(Collectors.toSet()),
-                PromotionUtils.getCurrentListPromotion(order.getPromotions())
+                order.getProductOrders().stream().map(ProductOrderDtoConverter::toResponse).collect(Collectors.toSet())
+//                PromotionUtils.getCurrentListPromotion(order.getPromotions())
         );
     }
 

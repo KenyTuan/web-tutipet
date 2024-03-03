@@ -1,12 +1,16 @@
 package shop.titupet.service.Impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.titupet.config.exception.*;
+import shop.titupet.exception.*;
+import shop.titupet.exception.BadRequestException;
+import shop.titupet.exception.NotFoundException;
 import shop.titupet.models.converter.ProductDtoConverter;
 import shop.titupet.models.dtos.product.CreateProductReq;
+import shop.titupet.models.dtos.product.ProductRes;
 import shop.titupet.models.dtos.product.UpdateProductReq;
 import shop.titupet.models.entities.Product;
 import shop.titupet.models.entities.ProductType;
@@ -20,6 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
@@ -127,5 +132,18 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductByName(String name) {
         return productRepo.findActiveByName(name)
                 .orElseThrow(()->new NotFoundException("404","Not Found"));
+    }
+
+    @Override
+    public List<ProductRes> getListProductLimit(Integer page, Integer limit) {
+        final long countProduct = productRepo.count();
+
+        return null;
+    }
+
+    @Override
+    public List<Product> findAll(Integer size, Long page) {
+        return productRepo.findAll(
+                PageRequest.of(0,size, Sort.by("name").descending())).stream().toList();
     }
 }

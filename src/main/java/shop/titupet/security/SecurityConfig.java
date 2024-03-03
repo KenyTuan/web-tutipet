@@ -26,7 +26,7 @@
 //@Configuration
 //@EnableWebSecurity
 //@RequiredArgsConstructor
-//public class SecurityConfig{
+//public class SecurityConfig extends WebSecurityConfiguration {
 //    private static String[] WHITE_LIST = {
 //            "/login"
 //    };

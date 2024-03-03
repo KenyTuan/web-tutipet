@@ -7,7 +7,7 @@ import shop.titupet.models.enums.OrderStatus;
 
 @Getter
 @Setter
-public class UpdateOrderDtoReq {
+public class UpdateOrderReq {
 
     @NotNull(message = "Id is required.")
     private Long id;

@@ -6,9 +6,7 @@ Content-Type: application/json
   "email": "ancsdfa1@gmail1.com",
   "password": "123456",
   "confirmPassword": "123456",
-  "gender" : true,
-  "role": "abc",
-  "img": ""
+  "gender" : true
 }
 
 ###

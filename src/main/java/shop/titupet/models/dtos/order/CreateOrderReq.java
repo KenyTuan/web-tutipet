@@ -8,7 +8,7 @@ import shop.titupet.models.dtos.productorder.ProductOrderReq;
 import java.util.Set;
 
 @Getter @Setter
-public class CreateOrderDtoReq {
+public class CreateOrderReq {
 
     @NotNull(message = "Address Id is required.")
     private Long address_id;

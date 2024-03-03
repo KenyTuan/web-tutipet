@@ -26,6 +26,7 @@ public class TitupetApplication {
         SpringApplication.run(TitupetApplication.class, args);
     }
 
+
     @Bean
     public CommandLineRunner dataLoader(ProductTypeRepo productTypeRepo,ProductRepo productRepo){
         return new CommandLineRunner() {
@@ -47,14 +48,14 @@ public class TitupetApplication {
 
     public List<ProductType> dataProductType(){
         List<ProductType> types = new ArrayList<>();
-        types.add(ProductType.builder().name("Thức Ăn Hạt Khô").build());
-        types.add(ProductType.builder().name("Pate & Nước sốt").build());
-        types.add(ProductType.builder().name("Súp thưởng ăn liền").build());
-        types.add(ProductType.builder().name("Xúc xích thịt hộp").build());
-        types.add(ProductType.builder().name("Xương gặm & Bánh thưởng").build());
-        types.add(ProductType.builder().name("Vitamin & Dinh dưỡng").build());
-        types.add(ProductType.builder().name("Bát ăn & Bình uống nước").build());
-        types.add(ProductType.builder().name("Tã bỉm & Tấm lót vệ sinh").build());
+        types.add(ProductType.builder().name("Thức Ăn Hạt Khô").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Pate & Nước sốt").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Súp thưởng ăn liền").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Xúc xích thịt hộp").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Xương gặm & Bánh thưởng").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Vitamin & Dinh dưỡng").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Bát ăn & Bình uống nước").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Tã bỉm & Tấm lót vệ sinh").petTypes(PetType.CAT).build());
 
         return types;
     }
@@ -66,7 +67,6 @@ public class TitupetApplication {
         Product product = Product.builder()
                 .name("Thức ăn cho mèo con ROYAL CANIN Kitten")
                 .price(120000)
-                .petTypes(PetType.CAT)
                 .status(EnableStatus.ENABLED)
                 .type(types.get(0))
                 .build();
@@ -76,7 +76,6 @@ public class TitupetApplication {
         Product product1 = Product.builder()
                 .name("Thức ăn cho mèo trưởng thành ROYAL CANIN Indoor 27")
                 .price(120000)
-                .petTypes(PetType.CAT)
                 .status(EnableStatus.ENABLED)
                 .type(types.get(0))
                 .build();
@@ -86,7 +85,6 @@ public class TitupetApplication {
         Product product2  = Product.builder()
                 .name("Thức ăn cho mèo con và mèo mẹ ROYAL CANIN Mother & Babycat")
                 .price(120000)
-                .petTypes(PetType.CAT)
                 .status(EnableStatus.ENABLED)
                 .type(types.get(0))
                 .build();
@@ -96,14 +94,13 @@ public class TitupetApplication {
         Product product3 = Product.builder()
                 .name("Pate cho mèo vị cá ngừ nguyên chất CAT SEA FISH Pure Tuna Meat")
                 .price(120000)
-                .petTypes(PetType.CAT)
                 .status(EnableStatus.ENABLED)
                 .type(types.get(1))
                 .build();
         product3.setObjectStatus(ObjectStatus.ACTIVE);
 
         products.add(product3);
-        
+
         return products;
     }
 

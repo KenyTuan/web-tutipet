@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import shop.titupet.models.enums.PetType;
 
 import java.util.Set;
 
@@ -20,6 +21,9 @@ public class ProductType extends BaseEntity {
     private Integer id;
 
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private PetType petTypes;
 
     @OneToMany(mappedBy = "type")
     @JsonIgnore
