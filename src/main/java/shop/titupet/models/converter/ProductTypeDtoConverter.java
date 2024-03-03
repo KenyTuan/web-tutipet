@@ -11,6 +11,7 @@ public class ProductTypeDtoConverter {
         return new ProductTypeRes(
                 type.getId(),
                 type.getName(),
+                type.getPetTypes(),
                 type.getProducts(),
                 type.getCreatedBy(),
                 type.getCreatedAt(),

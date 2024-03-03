@@ -3,9 +3,8 @@ package shop.titupet.service.Impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.titupet.config.exception.BadRequestException;
-import shop.titupet.config.exception.NotFoundException;
-import shop.titupet.config.exception.TutipetException;
+import shop.titupet.exception.NotFoundException;
+import shop.titupet.exception.TitupetException;
 import shop.titupet.models.converter.PromotionDtoConverter;
 import shop.titupet.models.dtos.promotion.CreatePromotionDtoReq;
 import shop.titupet.models.entities.Product;
@@ -18,7 +17,6 @@ import shop.titupet.service.PromotionService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +52,7 @@ public class PromotionServiceImpl implements PromotionService {
 
             return promotion;
         }catch (Exception e){
-            throw new TutipetException("400","Error "+ e);
+            throw new TitupetException("400","Error "+ e);
         }
     }
 
@@ -70,7 +68,7 @@ public class PromotionServiceImpl implements PromotionService {
             promotionRepo.save(promotion);
 
         }catch (Exception e){
-            throw new TutipetException("400","Error "+ e);
+            throw new TitupetException("400","Error "+ e);
         }
     }
 

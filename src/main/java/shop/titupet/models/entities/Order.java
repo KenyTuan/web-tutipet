@@ -35,7 +35,7 @@ public class Order extends BaseEntity{
     @JsonIgnore
     private Set<ProductOrder> productOrders;
 
-    @ManyToMany(mappedBy = "orders")
-    @JsonIgnore
-    private Set<Promotion> promotions;
+//    @ManyToMany(mappedBy = "orders")
+//    @JsonIgnore
+//    private Set<Promotion> promotions;
 }

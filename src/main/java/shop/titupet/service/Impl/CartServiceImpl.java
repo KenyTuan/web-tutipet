@@ -3,7 +3,8 @@ package shop.titupet.service.Impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.titupet.config.exception.BadRequestException;
+import shop.titupet.exception.BadRequestException;
+import shop.titupet.exception.NotFoundException;
 import shop.titupet.models.converter.CartDtoConverter;
 import shop.titupet.models.converter.ProductCartDtoConverter;
 import shop.titupet.models.dtos.cart.CartReq;
@@ -59,5 +60,11 @@ public class CartServiceImpl implements CartService {
         }catch (Exception e){
             throw new BadRequestException("400", e.getMessage());
         }
+    }
+
+    @Override
+    public Cart getCartById(Long id) {
+        return cartRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("404","Not Found!"));
     }
 }

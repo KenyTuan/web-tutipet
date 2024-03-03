@@ -14,7 +14,6 @@ public class ProductDtoConverter {
     public static Product toEntity(CreateProductReq req){
         Product product = Product.builder()
                 .name(req.getName())
-                .petTypes(req.getPetTypes())
                 .price(req.getPrice())
                 .description(req.getDescription())
                 .info(req.getInfo())
@@ -28,7 +27,6 @@ public class ProductDtoConverter {
     public static Product toEntity(UpdateProductReq req){
         Product product = Product.builder()
                 .name(req.getName())
-                .petTypes(req.getPetTypes())
                 .price(req.getPrice())
                 .description(req.getDescription())
                 .info(req.getInfo())
@@ -43,7 +41,6 @@ public class ProductDtoConverter {
         return new ProductRes(
                 product.getId(),
                 product.getName(),
-                product.getPetTypes(),
                 product.getPrice(),
                 product.getDescription(),
                 product.getInfo(),

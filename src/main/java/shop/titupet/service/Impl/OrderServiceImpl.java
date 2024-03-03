@@ -3,11 +3,11 @@ package shop.titupet.service.Impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.titupet.config.exception.BadRequestException;
-import shop.titupet.config.exception.NotFoundException;
+import shop.titupet.exception.BadRequestException;
+import shop.titupet.exception.NotFoundException;
 import shop.titupet.models.converter.OrderDtoConverter;
 import shop.titupet.models.converter.ProductOrderDtoConverter;
-import shop.titupet.models.dtos.order.CreateOrderDtoReq;
+import shop.titupet.models.dtos.order.CreateOrderReq;
 import shop.titupet.models.entities.Address;
 import shop.titupet.models.entities.Order;
 import shop.titupet.models.entities.ProductOrder;
@@ -41,14 +41,15 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrderById(Long id) {
 
         return orderRepo.findById(id).orElseThrow(()-> new NotFoundException("404","Not Found!"));
+
     }
 
     @Override
     @Transactional
-    public Order createOrder(CreateOrderDtoReq req) {
+    public Order createOrder(CreateOrderReq req) {
         final Set<Promotion> promotions = new HashSet<>(
                 promotionRepo.findAllById(req.getPromotionCodes())) ;
-        final Address address  = addressRepo.getReferenceById(req.getAddress_id());''
+        final Address address  = addressRepo.getReferenceById(req.getAddress_id());
 
         try {
             final Order order = OrderDtoConverter.toEntity(req);
@@ -63,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
                     .collect(Collectors.toSet());
 
             order.setProductOrders(productOrders);
-            order.setPromotions(promotions);
+//            order.setPromotions(promotions);
             order.setAddress(address);
             orderRepo.save(order);
 

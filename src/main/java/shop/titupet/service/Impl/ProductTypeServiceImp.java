@@ -2,7 +2,7 @@ package shop.titupet.service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.titupet.config.exception.NotFoundException;
+import shop.titupet.exception.NotFoundException;
 import shop.titupet.models.entities.ProductType;
 import shop.titupet.repository.ProductTypeRepo;
 import shop.titupet.service.ProductTypeService;

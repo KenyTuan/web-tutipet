@@ -1,6 +1,6 @@
-package shop.titupet.config.exception;
+package shop.titupet.exception;
 
-public class BadRequestException extends TutipetException {
+public class BadRequestException extends TitupetException {
     public BadRequestException(String code, String message) {
         super(code, message);
     }

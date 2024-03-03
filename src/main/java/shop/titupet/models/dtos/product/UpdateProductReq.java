@@ -14,13 +14,11 @@ import shop.titupet.models.enums.PetType;
 @Setter
 public class UpdateProductReq {
 
+    @NotBlank(message = "ID is required")
     private Long id;
 
     @NotBlank(message = "Name is required.")
     private String name;
-
-    @NotNull(message = "Pet Type is required.")
-    private PetType petTypes;
 
     @NotNull(message = "Type is required.")
     private Integer type_id;
@@ -32,7 +30,6 @@ public class UpdateProductReq {
 
     private String info;
 
-    @NotBlank(message = "Img is required")
     private String img;
 
 }

@@ -4,13 +4,11 @@ import shop.titupet.models.entities.ProductType;
 import shop.titupet.models.entities.Promotion;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.ObjectStatus;
-import shop.titupet.models.enums.PetType;
 
 import java.time.ZonedDateTime;
 
 public record ProductRes( Long id,
                           String name,
-                          PetType petType,
                           double price,
                           String description,
                           String info,
