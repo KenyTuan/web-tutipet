@@ -7,6 +7,7 @@ import lombok.*;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.models.enums.PetType;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,8 +44,8 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Set<ProductOrder> productOrders;
 
-    @ManyToMany(mappedBy = "products")
-    @JsonIgnore
-    private Set<Promotion> promotions;
+//    @ManyToMany(mappedBy = "products")
+//    @JsonIgnore
+//    private Set<Promotion> promotions  = new HashSet<>();
 
 }

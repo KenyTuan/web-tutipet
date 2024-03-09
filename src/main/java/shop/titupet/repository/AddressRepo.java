@@ -2,6 +2,7 @@ package shop.titupet.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import shop.titupet.models.entities.Address;
 
@@ -20,4 +21,9 @@ public interface AddressRepo extends JpaRepository<Address,Long> {
     @Query(value = "select a from Address a where a.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE " +
             "and a.user.id = :userId")
     Optional<Address> findActiveByUserID(Long userId);
+
+    @Query(value = "select a from Address a " +
+            "where a.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE " +
+            "and a.user.id= :userId")
+    List<Address> findAllActiveByUser_ID(@Param("userId") Long userId);
 }

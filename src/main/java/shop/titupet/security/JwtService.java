@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import shop.titupet.models.entities.User;
 
 import java.security.Key;
 import java.util.Date;
@@ -33,35 +34,37 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(User userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(
             Map<String,Object> extraClaims,
-            UserDetails userDetails
+            User userDetails
     ){
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     public String generateRefreshToken(
-            UserDetails userDetails
+            User userDetails
     ) {
         return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
     private String buildToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails,
+            User user,
             Long jwtExpiration
     ) {
-        return Jwts
-                .builder()
+        return Jwts.builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(user.getEmail())
+                .claim("userId", user.getId())
+                .claim("fullName", user.getFullName())
+                .claim("role", user.getRole())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(getSignInKey(),SignatureAlgorithm.HS256)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -78,14 +81,18 @@ public class JwtService {
         return extractClaim(token,Claims::getExpiration);
     }
 
+    public Claims decodeToken(String token) {
+        return extractAllClaims(token);
+    }
+
 
     private Claims extractAllClaims(String token){
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder().setSigningKey(getSignInKey()).build()
+                    .parseClaimsJws(token).getBody();
+        } catch (Exception e) {
+            throw new RuntimeException("Error decoding token: " + e.getMessage());
+        }
     }
 
     private Key getSignInKey() {

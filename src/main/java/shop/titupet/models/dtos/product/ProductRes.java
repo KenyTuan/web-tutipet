@@ -19,7 +19,7 @@ public record ProductRes( Long id,
                           Long updatedBy,
                           ZonedDateTime updatedAt,
                           ObjectStatus objectStatus,
-                          ProductType type,
-                          Promotion promotion
+                          ProductType type
+//                          Promotion promotion
 ) {
 }

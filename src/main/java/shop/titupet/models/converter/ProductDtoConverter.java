@@ -51,8 +51,8 @@ public class ProductDtoConverter {
                 product.getUpdatedBy(),
                 product.getUpdatedAt(),
                 product.getObjectStatus(),
-                product.getType(),
-                PromotionUtils.getCurrentPromotion(product.getPromotions())
+                product.getType()
+//                PromotionUtils.getCurrentPromotion(product.getPromotions())
         );
     }
 }

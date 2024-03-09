@@ -1,10 +1,10 @@
 package shop.titupet.models.converter;
 
-import shop.titupet.models.dtos.cart.CartReq;
-import shop.titupet.models.dtos.cart.CartRes;
 import shop.titupet.models.dtos.productCart.ProductCartReq;
 import shop.titupet.models.dtos.productCart.ProductCartRes;
+import shop.titupet.models.dtos.productCart.UpdateProductCartReq;
 import shop.titupet.models.entities.Cart;
+import shop.titupet.models.entities.Product;
 import shop.titupet.models.entities.ProductCart;
 import shop.titupet.models.enums.ObjectStatus;
 
@@ -25,8 +25,19 @@ public class ProductCartDtoConverter {
 
     public static ProductCart toEntity(ProductCartReq req, Cart cart) {
         ProductCart productCart = ProductCart.builder()
-                .quantity(req.getQuantity())
+                .product(Product.builder().id(req.getProductId()).build())
+                .quantity(1)
                 .cart(cart)
+                .build();
+        productCart.setObjectStatus(ObjectStatus.ACTIVE);
+        return productCart;
+    }
+
+    public static ProductCart toEntity(UpdateProductCartReq req) {
+        ProductCart productCart = ProductCart.builder()
+                .id(req.getId())
+                .product(Product.builder().id(req.getProductId()).build())
+                .quantity(req.getQuantity())
                 .build();
         productCart.setObjectStatus(ObjectStatus.ACTIVE);
         return productCart;

@@ -10,8 +10,6 @@ import shop.titupet.models.entities.User;
 @Getter @Setter
 public class CreateAddressReq {
 
-    private Long user_id;
-
     @NotBlank(message = "Name is required.")
     @Size(min = 5,max = 255,message = "Receiver name length ranges from 5 to 255 characters")
     private String receiverName;
