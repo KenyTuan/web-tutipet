@@ -3,6 +3,7 @@ package shop.titupet.models.converter;
 import shop.titupet.models.dtos.order.CreateOrderReq;
 import shop.titupet.models.dtos.order.OrderRes;
 import shop.titupet.models.dtos.order.UpdateOrderReq;
+import shop.titupet.models.entities.Address;
 import shop.titupet.models.entities.Order;
 import shop.titupet.models.enums.ObjectStatus;
 import shop.titupet.models.enums.OrderStatus;
@@ -13,6 +14,7 @@ public class OrderDtoConverter {
 
     public static Order toEntity(CreateOrderReq req){
         Order order = Order.builder()
+                .address(Address.builder().id(req.getAddress_id()).build())
                 .note(req.getNote())
                 .status(OrderStatus.OPEN)
                 .build();

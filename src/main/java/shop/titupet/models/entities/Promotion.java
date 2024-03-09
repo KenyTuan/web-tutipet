@@ -47,12 +47,12 @@ public class Promotion extends BaseEntity {
 //    @JsonIgnore
 //    private Set<Order> orders;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_promotion",
-            joinColumns = @JoinColumn(name = "=promotion_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @JsonIgnore
-    private Set<Product> products;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "product_promotion",
+//            joinColumns = @JoinColumn(name = "promotion_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id")
+//    )
+//    @JsonIgnore
+//    private Set<Product> products;
 }

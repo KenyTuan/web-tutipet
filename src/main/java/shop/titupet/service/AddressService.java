@@ -7,6 +7,7 @@ import shop.titupet.models.dtos.user.UserRes;
 import shop.titupet.models.entities.Address;
 import shop.titupet.models.entities.User;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface AddressService {
@@ -15,7 +16,7 @@ public interface AddressService {
 
     Address getAddressById(Long id);
 
-    Address createAddress(CreateAddressReq req);
+    Address createAddress(CreateAddressReq req,String token);
 
     void deleteAddress(Long id);
 
@@ -23,4 +24,6 @@ public interface AddressService {
 
 
     Address getAddressUser(Long userId);
+
+    List<Address> getAllAddressByUser_Id(String token);
 }

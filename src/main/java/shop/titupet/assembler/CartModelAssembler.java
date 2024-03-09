@@ -4,9 +4,7 @@ import lombok.NonNull;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-import shop.titupet.controller.AddressController;
 import shop.titupet.controller.CartController;
-import shop.titupet.models.dtos.address.AddressRes;
 import shop.titupet.models.dtos.cart.CartRes;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

@@ -47,7 +47,7 @@ public class PromotionServiceImpl implements PromotionService {
 
             final Promotion promotion = PromotionDtoConverter.toEntity(req);
 
-            promotion.setProducts(product);
+//            promotion.setProducts(product);
             promotionRepo.save(promotion);
 
             return promotion;

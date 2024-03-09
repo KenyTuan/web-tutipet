@@ -28,7 +28,8 @@ public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            ApiEndpoints.PREFIX + ApiEndpoints.PRODUCT_V1 + "/**"
+            ApiEndpoints.PREFIX + ApiEndpoints.PRODUCT_V1 + "/**",
+            ApiEndpoints.PREFIX + ApiEndpoints.PRO_TYPE_V1 + "/**"
 
     };
 
@@ -48,9 +49,9 @@ public class SecurityConfiguration {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-//                .exceptionHandling(exceptionHandlingConfigurer -> exceptionHandlingConfigurer.authenticationEntryPoint(
-//                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
-//                ))
+                .exceptionHandling(exceptionHandlingConfigurer -> exceptionHandlingConfigurer.authenticationEntryPoint(
+                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
+                ))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
                         logout.logoutUrl("api/v1/auth/logout")

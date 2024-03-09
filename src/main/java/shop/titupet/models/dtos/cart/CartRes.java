@@ -8,16 +8,12 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 public record CartRes(
-
         Long id,
-        UserRes userRes,
         Set<ProductCartRes> productCartRes,
         ZonedDateTime createdAt,
         Long createdBy,
         ZonedDateTime updatedAt,
-        Long updatedBy,
-        ObjectStatus objectStatus
-
+        Long updatedBy
 
 ) {
 

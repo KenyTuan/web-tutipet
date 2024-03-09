@@ -48,14 +48,14 @@ public class TitupetApplication {
 
     public List<ProductType> dataProductType(){
         List<ProductType> types = new ArrayList<>();
-        types.add(ProductType.builder().name("Thức Ăn Hạt Khô").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Pate & Nước sốt").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Súp thưởng ăn liền").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Xúc xích thịt hộp").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Xương gặm & Bánh thưởng").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Vitamin & Dinh dưỡng").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Bát ăn & Bình uống nước").petTypes(PetType.CAT).build());
-        types.add(ProductType.builder().name("Tã bỉm & Tấm lót vệ sinh").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Thức ăn cho mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Lồng mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Phụ kiện cho mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Khay vệ sinh, Nhà vệ sinh cho mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Cát mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Máy lọc nước cho mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Bát ăn cho mèo").petTypes(PetType.CAT).build());
+        types.add(ProductType.builder().name("Đệm cho mèo").petTypes(PetType.CAT).build());
 
         return types;
     }
@@ -79,7 +79,7 @@ public class TitupetApplication {
                 .status(EnableStatus.ENABLED)
                 .type(types.get(0))
                 .build();
-        product.setObjectStatus(ObjectStatus.ACTIVE);
+        product1.setObjectStatus(ObjectStatus.ACTIVE);
         products.add(product1);
 
         Product product2  = Product.builder()
@@ -100,6 +100,24 @@ public class TitupetApplication {
         product3.setObjectStatus(ObjectStatus.ACTIVE);
 
         products.add(product3);
+
+        Product product4 = Product.builder()
+                .name("Pate cho mèo vị cá ngừ nguyên chất CAT SEA FISH Pure Tuna Meat")
+                .price(120000)
+                .status(EnableStatus.ENABLED)
+                .type(types.get(0))
+                .build();
+        product4.setObjectStatus(ObjectStatus.ACTIVE);
+        products.add(product4);
+
+        Product product5 = Product.builder()
+                .name("Pate cho mèo CIAO Tuna & Whitebait vị cá ngừ và cá chạch trắng")
+                .price(120000)
+                .status(EnableStatus.ENABLED)
+                .type(types.get(0))
+                .build();
+        product5.setObjectStatus(ObjectStatus.ACTIVE);
+        products.add(product5);
 
         return products;
     }

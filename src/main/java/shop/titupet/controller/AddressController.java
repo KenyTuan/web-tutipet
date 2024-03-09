@@ -55,6 +55,28 @@ public class AddressController {
                         .withSelfRel());
     }
 
+    @GetMapping(ApiEndpoints.ADDRESS_V1 + "/user")
+    public CollectionModel<EntityModel<AddressRes>> getAllAddressByUser(
+            @RequestHeader("Authorization") String token){
+
+        final List<AddressRes> proRes =service.getAllAddressByUser_Id(token)
+                .stream()
+                .map(AddressDtoConverter::toResponse)
+                .toList();
+
+        final List<EntityModel<AddressRes>> entityModels = proRes
+                .stream()
+                .map(assembler::toModel)
+                .toList();
+
+
+
+        return CollectionModel.of(
+                entityModels,
+                linkTo(methodOn(AddressController.class).getAllAddress())
+                        .withSelfRel());
+    }
+
     // ============================ GET ADDRESS BY ID =============================
     @GetMapping(ApiEndpoints.ADDRESS_V1 + "/{id}")
     public EntityModel<AddressRes> getAddressById(@PathVariable(name = "id") Long id){
@@ -77,9 +99,10 @@ public class AddressController {
     // ============================ POST ADDRESS =============================
     @PostMapping(ApiEndpoints.ADDRESS_V1)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createAddress(@RequestBody @Valid CreateAddressReq req){
+    public ResponseEntity<?> createAddress(@RequestBody @Valid CreateAddressReq req,
+                                           @RequestHeader("Authorization") String token){
         final EntityModel<AddressRes> entityModel = assembler.toModel(AddressDtoConverter
-                .toResponse(service.createAddress(req)));
+                .toResponse(service.createAddress(req,token)));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
