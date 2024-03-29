@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 
 public class PromotionUtils {
     public static Promotion getCurrentPromotion(Set<Promotion> promotions) {
+        if (promotions == null) {
+            return null;
+        }
+
         return promotions.stream()
                 .filter(isCurrentAvailable())
                 .findFirst()
@@ -20,6 +24,7 @@ public class PromotionUtils {
                 .filter(isCurrentAvailable())
                 .collect(Collectors.toSet());
     }
+
     private static Predicate<Promotion> isCurrentAvailable() {
         ZonedDateTime now = ZonedDateTime.now();
         return i -> i.getFromTime().isBefore(now) && i.getToTime().isAfter(now);

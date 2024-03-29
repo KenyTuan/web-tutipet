@@ -15,4 +15,6 @@ public final class ApiEndpoints {
     public static final String PROMOTION_V1 = "/v1/promotion";
     public static final String CART_V1 = "/v1/cart";
     public static final String AUTH_V1 = "/v1/auth";
+    public static final String PAY_V1 = "/v1/create_payment";
+
 }

@@ -11,17 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.titupet.assembler.AddressModelAssembler;
 import shop.titupet.constants.ApiEndpoints;
-import shop.titupet.models.converter.AddressDtoConverter;
-import shop.titupet.models.converter.ProductDtoConverter;
-import shop.titupet.models.dtos.address.AddressRes;
-import shop.titupet.models.dtos.address.CreateAddressReq;
-import shop.titupet.models.dtos.address.UpdateAddressReq;
-import shop.titupet.models.dtos.product.ProductRes;
-import shop.titupet.models.entities.Address;
+import shop.titupet.converter.AddressDtoConverter;
+import shop.titupet.dtos.address.AddressRes;
+import shop.titupet.dtos.address.CreateAddressReq;
+import shop.titupet.dtos.address.UpdateAddressReq;
 import shop.titupet.service.AddressService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;

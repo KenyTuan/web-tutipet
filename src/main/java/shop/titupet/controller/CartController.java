@@ -1,6 +1,5 @@
 package shop.titupet.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -9,11 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import shop.titupet.assembler.CartModelAssembler;
 import shop.titupet.constants.ApiEndpoints;
-import shop.titupet.models.converter.CartDtoConverter;
-import shop.titupet.models.converter.ProductDtoConverter;
-import shop.titupet.models.dtos.cart.CreateCartReq;
-import shop.titupet.models.dtos.cart.CartRes;
-import shop.titupet.models.dtos.cart.UpdateCartReq;
+import shop.titupet.converter.CartDtoConverter;
+import shop.titupet.dtos.cart.CreateCartReq;
+import shop.titupet.dtos.cart.CartRes;
+import shop.titupet.dtos.cart.UpdateCartReq;
 import shop.titupet.models.entities.Cart;
 import shop.titupet.service.CartService;
 

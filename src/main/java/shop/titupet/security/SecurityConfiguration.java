@@ -19,7 +19,6 @@ import shop.titupet.constants.ApiEndpoints;
 import static org.springframework.http.HttpMethod.*;
 import static shop.titupet.models.enums.Permission.*;
 import static shop.titupet.models.enums.Role.ADMIN;
-import static shop.titupet.models.enums.Role.MANAGER;
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +29,6 @@ public class SecurityConfiguration {
             "/api/v1/auth/**",
             ApiEndpoints.PREFIX + ApiEndpoints.PRODUCT_V1 + "/**",
             ApiEndpoints.PREFIX + ApiEndpoints.PRO_TYPE_V1 + "/**"
-
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;

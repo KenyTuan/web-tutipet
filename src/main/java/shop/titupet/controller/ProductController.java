@@ -1,7 +1,6 @@
 package shop.titupet.controller;
 
 
-import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -12,15 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.titupet.assembler.ProductModelAssembler;
 import shop.titupet.constants.ApiEndpoints;
-import shop.titupet.models.converter.ProductDtoConverter;
-import shop.titupet.models.dtos.product.CreateProductReq;
-import shop.titupet.models.dtos.product.ProductRes;
-import shop.titupet.models.dtos.product.UpdateProductReq;
+import shop.titupet.converter.ProductDtoConverter;
+import shop.titupet.dtos.product.CreateProductReq;
+import shop.titupet.dtos.product.ProductRes;
+import shop.titupet.dtos.product.UpdateProductReq;
 import shop.titupet.models.entities.Product;
 import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.service.ProductService;
 
-import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -53,13 +51,22 @@ public class ProductController {
                                 .withSelfRel());
     }
 
+    @GetMapping(ApiEndpoints.PRODUCT_V1 + "/active")
+    public CollectionModel<EntityModel<ProductRes>> getAllProductsActive(){
+        final List<ProductRes> proRes =productService.getAllProductsActive()
+                .stream()
+                .map(ProductDtoConverter::toResponse)
+                .toList();
 
-    @GetMapping(value = ApiEndpoints.PRODUCT_V1, params = {"size", "page","sort"})
-    public List<Product> getAllProductsLimitPage(@RequestParam(name = "size") Integer size,
-                                                 @RequestParam(name = "page") Long page,
-                                                 @RequestParam(name = "sort") String sort
-                                                 ){
-        return productService.findAll(size,page);
+        final List<EntityModel<ProductRes>> entityModels = proRes
+                .stream()
+                .map(assembler::toModel)
+                .toList();
+
+        return CollectionModel.of(
+                entityModels,
+                linkTo(methodOn(ProductController.class).getAllProducts())
+                        .withSelfRel());
     }
 
     // ============================ GET PRODUCT BY ID=============================
@@ -69,15 +76,6 @@ public class ProductController {
         final Product product = productService.getProductById(id);
 
         return assembler.toModel(ProductDtoConverter.toResponse(product));
-    }
-
-    // ============================ GET PRODUCT BY NAME =============================
-//    @GetMapping(value = ApiEndpoints.PRODUCT_V1,params = "name")
-    public ProductRes getProductByName(@RequestParam(name = "name") String name){
-
-        final Product product = productService.getProductByName(name);
-
-        return ProductDtoConverter.toResponse(product);
     }
 
     // ============================ POST PRODUCT =============================

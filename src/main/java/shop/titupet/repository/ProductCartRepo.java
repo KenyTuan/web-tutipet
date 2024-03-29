@@ -29,4 +29,18 @@ public interface ProductCartRepo extends JpaRepository<ProductCart,Long> {
 
     @Query("select p from ProductCart p where p.id IN :productCartIds")
     List<ProductCart> findByIdIn(@Param("productCartIds") List<Long> productCartIds);
+
+    @Query("select p from ProductCart p " +
+            "where p.id in :productCartIds and  " +
+            "p.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE")
+    List<ProductCart> findAllActiveById(@Param("productCartIds") List<Long> productCartIds);
+
+
+    @Query("select p from ProductCart p " +
+            "where p.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE " +
+            "and p.id = :productCartId and p.product.id = :productId")
+    Optional<ProductCart> findActiveByIdAndProductId(
+            @Param("productCartId") Long productCartId,
+            @Param("productId") Long productId);
+
 }
