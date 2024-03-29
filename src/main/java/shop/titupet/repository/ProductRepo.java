@@ -14,7 +14,7 @@ public interface ProductRepo extends JpaRepository<Product,Long> {
     @Query(value = "select p FROM Product p " +
             "where p.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE " +
             "and p.status = shop.titupet.models.enums.EnableStatus.ENABLED")
-    List<Product> findAllActive();
+    List<Product> findAllActiveAndEnabled();
 
     @Query(value = "select p from Product p " +
             "where p.id = :id and p.objectStatus =  shop.titupet.models.enums.ObjectStatus.ACTIVE " +
@@ -27,4 +27,7 @@ public interface ProductRepo extends JpaRepository<Product,Long> {
             "and p.name like :name")
     Optional<Product> findActiveByName(@Param(value = "name") String name);
 
+    @Query(value = "select p FROM Product p " +
+            "where p.objectStatus = shop.titupet.models.enums.ObjectStatus.ACTIVE ")
+    List<Product> findAllActive();
 }

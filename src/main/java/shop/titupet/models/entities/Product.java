@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@Table(name = "_products")
+@Table(name = "products")
 @Builder
 public class Product extends BaseEntity {
 
@@ -44,8 +44,8 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Set<ProductOrder> productOrders;
 
-//    @ManyToMany(mappedBy = "products")
-//    @JsonIgnore
-//    private Set<Promotion> promotions  = new HashSet<>();
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private Set<Promotion> promotions  = new HashSet<>();
 
 }

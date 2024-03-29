@@ -1,6 +1,7 @@
 package shop.titupet.service;
 
-import shop.titupet.models.dtos.order.CreateOrderReq;
+import shop.titupet.dtos.order.CreateOrderReq;
+import shop.titupet.dtos.order.UpdateOrderReq;
 import shop.titupet.models.entities.Order;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public interface OrderService {
 
     void deleteOrder(Long id);
 
-    Order updateOrder(Order order);
+    Order updateOrder(UpdateOrderReq order);
 
+    Order changePaidOrder(UpdateOrderReq req);
 }

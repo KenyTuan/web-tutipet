@@ -5,13 +5,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.titupet.exception.*;
 import shop.titupet.exception.BadRequestException;
 import shop.titupet.exception.NotFoundException;
-import shop.titupet.models.converter.ProductDtoConverter;
-import shop.titupet.models.dtos.product.CreateProductReq;
-import shop.titupet.models.dtos.product.ProductRes;
-import shop.titupet.models.dtos.product.UpdateProductReq;
+import shop.titupet.converter.ProductDtoConverter;
+import shop.titupet.dtos.product.CreateProductReq;
+import shop.titupet.dtos.product.ProductRes;
+import shop.titupet.dtos.product.UpdateProductReq;
 import shop.titupet.models.entities.Product;
 import shop.titupet.models.entities.ProductType;
 import shop.titupet.models.enums.EnableStatus;
@@ -34,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     // ============================ GET ALL PRODUCTS =============================
     @Override
     public List<Product> getAllProducts() {
-        return productRepo.findAllActive();
+        return productRepo.findAllActiveAndEnabled();
     }
 
 
@@ -47,12 +46,10 @@ public class ProductServiceImpl implements ProductService {
 
     // ============================ CRATE PRODUCT =================================
     @Override
-    @Transactional
     public Product createProduct(CreateProductReq req) {
 
         final ProductType type = typeRepo.findById(req.getType_id())
                 .orElseThrow(() -> new NotFoundException("404","Not Found"));
-
         try {
             final Product product = ProductDtoConverter.toEntity(req);
 
@@ -69,7 +66,6 @@ public class ProductServiceImpl implements ProductService {
 
     // ============================ DELETE PRODUCT ============================
     @Override
-    @Transactional
     public void deleteProduct(Long id) {
         final Product product = productRepo.findById(id)
                 .orElseThrow(()->new NotFoundException("404","Not Found"));
@@ -87,7 +83,6 @@ public class ProductServiceImpl implements ProductService {
 
     // ============================ UPDATE PRODUCT ============================
     @Override
-    @Transactional
     public Product updateProduct(UpdateProductReq req) {
         final Product product = productRepo.findById(req.getId())
                 .orElseThrow(()->new NotFoundException("404","Not Found"));
@@ -145,5 +140,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll(Integer size, Long page) {
         return productRepo.findAll(
                 PageRequest.of(0,size, Sort.by("name").descending())).stream().toList();
+    }
+
+    @Override
+    public List<Product> getAllProductsActive() {
+        return productRepo.findAllActive();
     }
 }

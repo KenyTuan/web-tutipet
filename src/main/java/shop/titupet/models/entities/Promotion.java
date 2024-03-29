@@ -22,7 +22,7 @@ public class Promotion extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
+//    private String code;
 
 //    private PromotionTarget target;
 
@@ -38,21 +38,21 @@ public class Promotion extends BaseEntity {
 
     private BigDecimal value;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "order_promotion",
-//            joinColumns = @JoinColumn(name = "=promotion_id"),
-//            inverseJoinColumns = @JoinColumn(name = "order_id")
-//    )
-//    @JsonIgnore
-//    private Set<Order> orders;
+    @ManyToMany
+    @JoinTable(
+            name = "order_promotion",
+            joinColumns = @JoinColumn(name = "=promotion_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    @JsonIgnore
+    private Set<Order> orders;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "product_promotion",
-//            joinColumns = @JoinColumn(name = "promotion_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id")
-//    )
-//    @JsonIgnore
-//    private Set<Product> products;
+    @ManyToMany
+    @JoinTable(
+        name = "product_promotion",
+        joinColumns = @JoinColumn(name = "promotion_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    @JsonIgnore
+    private Set<Product> products;
 }

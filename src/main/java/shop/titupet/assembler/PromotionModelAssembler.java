@@ -3,9 +3,8 @@ package shop.titupet.assembler;
 import lombok.NonNull;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
-import shop.titupet.controller.ProductTypeController;
 import shop.titupet.controller.PromotionController;
-import shop.titupet.models.dtos.promotion.PromotionRes;
+import shop.titupet.dtos.promotion.PromotionRes;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;

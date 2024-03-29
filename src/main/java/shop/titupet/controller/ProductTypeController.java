@@ -7,11 +7,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 import shop.titupet.assembler.ProductTypeModelAssembler;
 import shop.titupet.constants.ApiEndpoints;
-import shop.titupet.models.converter.ProductDtoConverter;
-import shop.titupet.models.converter.ProductTypeDtoConverter;
-import shop.titupet.models.dtos.product.ProductRes;
-import shop.titupet.models.dtos.productType.ProductTypeRes;
-import shop.titupet.models.entities.Product;
+import shop.titupet.converter.ProductTypeDtoConverter;
+import shop.titupet.dtos.productType.ProductTypeRes;
 import shop.titupet.models.entities.ProductType;
 import shop.titupet.service.ProductTypeService;
 

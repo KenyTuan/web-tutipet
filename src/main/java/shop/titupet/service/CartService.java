@@ -1,12 +1,9 @@
 package shop.titupet.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import shop.titupet.models.dtos.cart.CartRes;
-import shop.titupet.models.dtos.cart.CreateCartReq;
-import shop.titupet.models.dtos.cart.UpdateCartReq;
+import shop.titupet.dtos.cart.CreateCartReq;
+import shop.titupet.dtos.cart.UpdateCartReq;
 import shop.titupet.models.entities.Cart;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface CartService {

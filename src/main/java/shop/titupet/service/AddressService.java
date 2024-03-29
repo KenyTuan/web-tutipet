@@ -1,13 +1,9 @@
 package shop.titupet.service;
 
-import shop.titupet.models.dtos.address.CreateAddressReq;
-import shop.titupet.models.dtos.address.UpdateAddressReq;
-import shop.titupet.models.dtos.user.CreateUserReq;
-import shop.titupet.models.dtos.user.UserRes;
+import shop.titupet.dtos.address.CreateAddressReq;
+import shop.titupet.dtos.address.UpdateAddressReq;
 import shop.titupet.models.entities.Address;
-import shop.titupet.models.entities.User;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface AddressService {

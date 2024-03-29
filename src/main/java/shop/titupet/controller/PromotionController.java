@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import shop.titupet.constants.ApiEndpoints;
-import shop.titupet.models.converter.PromotionDtoConverter;
-import shop.titupet.models.dtos.promotion.CreatePromotionDtoReq;
-import shop.titupet.models.dtos.promotion.PromotionRes;
+import shop.titupet.converter.PromotionDtoConverter;
+import shop.titupet.dtos.promotion.CreatePromotionDtoReq;
+import shop.titupet.dtos.promotion.PromotionRes;
+import shop.titupet.dtos.promotion.UpdatePromotionReq;
+import shop.titupet.models.enums.EnableStatus;
 import shop.titupet.service.PromotionService;
 
 import java.util.List;
@@ -46,6 +48,16 @@ public class PromotionController {
          promotionService.deletePromotion(id);
     }
 
+    @PutMapping(ApiEndpoints.PROMOTION_V1)
+    @ResponseStatus(HttpStatus.OK)
+    public PromotionRes updatePromotion(@RequestBody @Valid UpdatePromotionReq req){
+        return PromotionDtoConverter.toResponse(promotionService.updatePromotion(req));
+    }
 
-
+//    @PatchMapping(ApiEndpoints.PROMOTION_V1)
+//    @ResponseStatus(HttpStatus.OK)
+//    public PromotionRes updateEnablePromotion(@RequestParam(name = "id") Long id,
+//                                              @RequestParam(name = "enable") EnableStatus enable){
+//        return PromotionDtoConverter.toResponse(promotionService.updateEnablePromotion(id,enable));
+//    }
 }
